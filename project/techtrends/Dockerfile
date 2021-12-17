@@ -4,13 +4,11 @@ FROM python:2.7
 LABEL maintainer='Anton Gordon'
 
 ## copy files to container place them in the app directory
-COPY . /app
+COPY ./techtrends/requirements.txt ./
 
-## set the working directory
-WORKDIR /app
+RUN pip install --no-cache-dir -r requirements.txt
 
-## install the dependencies from requirements.txt file
-RUN pip install -r requirements.txt
+COPY ./techtrends ./
 
 ## Initialize the database with the pre-defined posts in the init_db.py file
 RUN python init_db.py
