@@ -1,14 +1,37 @@
 import sqlite3
-
+import os
+import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
+import logging
+from datetime import datetime 
+
+db_connection_count=0
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
+    global db_connection_count
+    db_connection_count += 1    
     return connection
+
+# Function to get all posts
+def get_post(post_id):
+    connection = get_db_connection()
+    post = connection.execute('SELECT * FROM posts').fetchall()
+    connection.close()
+    return post
+
+#Function to get logs with timestamp
+def log_msg(message):
+    time = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+    return app.logger.info('%(time)s, %(message)s' %{"time": time, "message": message})
+
+def log_error_msg(message):
+    time = datetime.now().strftime('%d-%m-%Y, %H:%M:%S')
+    return app.logger.error('%(time)s, %(message)s' %{"time": time, "message": message})
 
 # Function to get a post using its ID
 def get_post(post_id):
@@ -21,6 +44,19 @@ def get_post(post_id):
 # Define the Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
+
+# Add healthz endpoint
+@app.route('/healthz')
+def healthz():
+    response = app.response_class(response=json.dumps({"result":"OK - healthy"}),status=200, mimetype='application/json')
+    return response
+
+# Add metrics endpoint
+@app.route("/metrics")
+def metrics():
+    total_posts = get_posts()
+    response = app.response_class(response=json.dumps({"db_connection_count": db_connection_count,"post_count": len(total_posts)}),status=200,mimetype='application/json')
+    return response
 
 # Define the main route of the web application 
 @app.route('/')
