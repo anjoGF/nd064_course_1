@@ -1,14 +1,21 @@
 # Action uses DockerHub Tokens and encrypted GitHub secrets to login into DockerHub and to push new images
+
 name: TechTrends - Package with Docker
+
+
 
 on:
   push:
     branches: [ main ]
+
+
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       -
         name: Checkout
