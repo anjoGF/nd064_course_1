@@ -4,14 +4,13 @@ FROM python:2.7
 LABEL maintainer='Anton Gordon'
 
 # copy files from the host to the container
-COPY ./project/techtrends /app
-
-#WORKDIR location
+COPY ./techtrends /app
+#  defines the working directory within the container
 WORKDIR /app
-
-#Installing requirements
-RUN pip install -U pip wheel setuptools && \
-    pip install -r requirements.txt
+# run commands within the container.
+# For example, invoke a pip command
+# to install dependencies defined in the requirements.txt file.
+RUN pip install -r requirements.txt
 
 #exposing in port 3111
 EXPOSE 3111
