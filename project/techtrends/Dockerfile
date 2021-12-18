@@ -4,7 +4,7 @@ FROM python:2.7
 LABEL maintainer='Anton Gordon'
 
 # copy files from the host to the container
-COPY . /app
+COPY ./techtrends /app
 #  defines the working directory within the container
 WORKDIR /app
 # run commands within the container.
