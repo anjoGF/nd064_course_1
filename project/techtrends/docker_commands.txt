@@ -1,0 +1,22 @@
+##  Place the used Docker commands in the docker_commands file.
+
+## docker build command 
+docker build -t techtrends -f ./Dockerfile .
+
+## docker command to run the application
+docker run -d -p 7111:3111 techtrends
+
+docker images
+
+# Get the docker container ID
+docker ps
+
+## Docker application logs
+docker logs 27ca727c2060
+
+* Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)

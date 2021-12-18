@@ -9,6 +9,7 @@ COPY ./techtrends/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./techtrends ./
+COPY ./Dockerfile ./
 
 ## Initialize the database with the pre-defined posts in the init_db.py file
 RUN python init_db.py
