@@ -19,4 +19,4 @@ EXPOSE 3111
 RUN python init_db.py
 
 #Executing at the container start
-CMD ["python", "app.py"]
+CMD ["python","-u", "app.py"]
