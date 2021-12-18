@@ -3,19 +3,21 @@ FROM python:2.7
 
 LABEL maintainer='Anton Gordon'
 
-## copy files to container place them in the app directory
-COPY ./techtrends/requirements.txt ./
+# copy files from the host to the container
+COPY ./project/techtrends /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+#WORKDIR location
+WORKDIR /app
 
-COPY ./techtrends ./
-COPY ./Dockerfile ./
+#Installing requirements
+RUN pip install -U pip wheel setuptools && \
+    pip install -r requirements.txt
 
-## Initialize the database with the pre-defined posts in the init_db.py file
-RUN python init_db.py
-
-## Expose the application port 3111
+#exposing in port 3111
 EXPOSE 3111
 
-## The application should execute at the container start
+#initializing database
+RUN python init_db.py
+
+#Executing at the container start
 CMD ["python", "app.py"]
