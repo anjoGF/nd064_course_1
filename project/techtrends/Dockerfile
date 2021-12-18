@@ -4,7 +4,7 @@ FROM python:2.7
 LABEL maintainer='Anton Gordon'
 
 # copy files from the host to the container
-COPY ./project/techtrends /app
+COPY . /app
 #  defines the working directory within the container
 WORKDIR /app
 # run commands within the container.
@@ -19,4 +19,4 @@ EXPOSE 3111
 RUN python init_db.py
 
 #Executing at the container start
-CMD ["python","-u", "app.py"]
+CMD ["python", "app.py"]
