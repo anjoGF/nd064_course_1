@@ -4,13 +4,13 @@ FROM python:2.7
 LABEL maintainer='Anton Gordon'
 
 # copy files from the host to the container
-COPY . /app
+COPY . .
 #  defines the working directory within the container
-WORKDIR /app
+WORKDIR /project/techtrends
 # run commands within the container.
 # For example, invoke a pip command
 # to install dependencies defined in the requirements.txt file.
-RUN PYTHONPATH=/usr/bin/python pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 #exposing in port 3111
 EXPOSE 3111
